@@ -8,6 +8,8 @@ pipeline {
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         DOCKER_CREDENTIALS_ID = 'dockerhub-creds'
         KUBE_CONFIG_ID = 'kubeconfig'
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${PATH}"
     }
 
     tools {
