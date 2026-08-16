@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = 'java-app'
-        IMAGE_NAME = 'your-dockerhub-username/java-app'
+        IMAGE_NAME = 'Veeravikas/java-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         DOCKER_CREDENTIALS_ID = 'dockerhub-creds'
@@ -43,13 +43,25 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
-                    sh "docker push ${FULL_IMAGE}"
-                }
-            }
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: DOCKER_CREDENTIALS_ID,
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            sh '''
+                set +x
+                printf '%s' "$DOCKER_PASS" | docker login docker.io \
+                    --username "$DOCKER_USER" \
+                    --password-stdin
+            '''
+
+            sh 'docker push "$FULL_IMAGE"'
         }
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
