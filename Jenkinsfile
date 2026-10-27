@@ -78,9 +78,9 @@ pipeline {
     }
 
     post {
-        always {
-            sh 'docker logout || true'
-        }
+        // always {
+        //     sh 'docker logout || true'
+        // }
         success {
             echo 'Deployment completed successfully.'
         }
