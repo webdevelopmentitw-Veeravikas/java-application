@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = 'java-app'
-        IMAGE_NAME = 'Veeravikas/java-app'
+        IMAGE_NAME = 'veeravikas/java-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         DOCKER_CREDENTIALS_ID = 'dockerhub-creds'
