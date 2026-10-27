@@ -63,18 +63,18 @@ pipeline {
     }
 }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                withCredentials([file(credentialsId: KUBE_CONFIG_ID, variable: 'KUBE_CONFIG_FILE')]) {
-                    sh '''
-                        mkdir -p ~/.kube
-                        cp "$KUBE_CONFIG_FILE" ~/.kube/config
-                        sed -i "s|your-dockerhub-username/java-app:1.0.0|${IMAGE_NAME}:${IMAGE_TAG}|g" kubernetes.yaml
-                        kubectl apply -f kubernetes.yaml
-                    '''
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         withCredentials([file(credentialsId: KUBE_CONFIG_ID, variable: 'KUBE_CONFIG_FILE')]) {
+        //             sh '''
+        //                 mkdir -p ~/.kube
+        //                 cp "$KUBE_CONFIG_FILE" ~/.kube/config
+        //                 sed -i "s|your-dockerhub-username/java-app:1.0.0|${IMAGE_NAME}:${IMAGE_TAG}|g" kubernetes.yaml
+        //                 kubectl apply -f kubernetes.yaml
+        //             '''
+        //         }
+        //     }
+        // }
     }
 
     post {
