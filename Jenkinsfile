@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'dev'}
+    agent {label 'any'}
 
     environment {
         APP_NAME = 'java-app'
